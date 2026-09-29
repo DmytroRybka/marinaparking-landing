@@ -1,0 +1,31 @@
+# Marina Parking – Winterlager-Finder
+
+> Marina Parking helps boat owners find winter storage (Winterlager) for their boat in Germany and the Netherlands. Owners send one request with boat size, region and preferred storage type; Marina Parking asks matching boatyards, marinas and storage halls and sends the owner the offers. The service is free for boat owners and non-binding.
+
+The website is in German. Main page: https://marinaparking.com/
+
+## What the service covers
+
+- Storage types: heated or unheated hall (Halle, Halle frostfrei), outdoor yard (Freilager), in-water winter berth (im Wasser)
+- Extra services that can be requested: crane or slipway (Kranen/Slippen), hull washing, shrink-wrapping (Einschrumpfen), transport, permission for own work, power at the berth
+- Regions: Germany (coast and inland lakes and rivers) and the Netherlands; overview of more than 130 winter-storage providers from the Kiel Fjord to the IJsselmeer
+- Season: winter 2026/27; most storage decisions are made between August and November
+
+## Typical winter storage prices (public price lists, per m² of storage area per season)
+
+- Outdoor yard: roughly 15–50 € per m²
+- Hall: roughly 30–120 € per m²
+- Example: 8.5 m × 3.0 m sailboat = 25.5 m²; hall at Sporthafen Kiel (price list 2026, 42 €/m²) ≈ 1,070 € per season, excluding crane or slipway
+- Prices differ a lot by region, provider and included services; the provider's own offer is binding
+
+## How to request
+
+- Form on the main page: https://marinaparking.com/#anfrage
+- E-mail: kontakt@marinaparking.com
+- Offers are usually sent within three working days
+
+## Pages
+
+- [Startseite / request form](https://marinaparking.com/)
+- [Impressum](https://marinaparking.com/impressum/)
+- [Datenschutzerklärung](https://marinaparking.com/datenschutz/)

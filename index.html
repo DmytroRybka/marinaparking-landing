@@ -23,7 +23,8 @@
 <meta name="twitter:title" content="Das passende Winterlager für Ihr Boot">
 <meta name="twitter:description" content="Halle, Freilager oder Wasser in Deutschland und den Niederlanden. Kostenlos anfragen.">
 <meta name="twitter:image" content="https://marinaparking.com/og-image.jpg">
-<link rel="preload" as="image" type="image/webp" href="img/hero-1400.webp" imagesrcset="img/hero-800.webp 800w, img/hero-1400.webp 1400w, img/hero-2400.webp 2400w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" media="(max-width: 700px)" href="img/hero-m-720.webp" imagesrcset="img/hero-m-720.webp 720w, img/hero-m-1080.webp 1080w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" media="(min-width: 701px)" href="img/hero-1400.webp" imagesrcset="img/hero-800.webp 800w, img/hero-1400.webp 1400w, img/hero-2400.webp 2400w" imagesizes="100vw" fetchpriority="high">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://marinaparking.com/#org", "name": "Marina Parking", "url": "https://marinaparking.com/", "logo": "https://marinaparking.com/icon-512.png", "email": "kontakt@marinaparking.com"}, {"@type": "WebSite", "@id": "https://marinaparking.com/#website", "url": "https://marinaparking.com/", "name": "Marina Parking", "inLanguage": "de-DE", "publisher": {"@id": "https://marinaparking.com/#org"}}, {"@type": "Service", "name": "Winterlager-Vermittlung für Boote", "serviceType": "Vermittlung von Winterlagerplätzen für Boote (Halle, Freilager, Wasserliegeplatz)", "provider": {"@id": "https://marinaparking.com/#org"}, "areaServed": [{"@type": "Country", "name": "Deutschland"}, {"@type": "Country", "name": "Niederlande"}], "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR", "description": "Kostenlos für Bootseigner"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Was kostet der Service?", "acceptedAnswer": {"@type": "Answer", "text": "Für Bootseigner nichts. Sie zahlen nur das Winterlager direkt beim Anbieter, zu dessen Preisen."}}, {"@type": "Question", "name": "Wann bekomme ich Angebote?", "acceptedAnswer": {"@type": "Answer", "text": "In der Regel innerhalb von drei Werktagen. In der Hochsaison von September bis November kann es etwas länger dauern, weil viele Anbieter ihre Plätze erst dann vergeben."}}, {"@type": "Question", "name": "Welche Anbieter fragen Sie an?", "acceptedAnswer": {"@type": "Answer", "text": "Werften, Marinas, Bootshallen und Winterlagerplätze in Deutschland und den Niederlanden. Wir fragen nur Anbieter an, die Ihr Boot nach Größe und Gewicht aufnehmen können."}}, {"@type": "Question", "name": "Ist die Anfrage verbindlich?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Der Vertrag kommt erst zustande, wenn Sie ein Angebot direkt beim Anbieter annehmen."}}, {"@type": "Question", "name": "Ich habe schon einen Liegeplatz im Sommer. Hilft das?", "acceptedAnswer": {"@type": "Answer", "text": "Ja. Nennen Sie ihn in den Anmerkungen, dann suchen wir ein Winterlager in erreichbarer Nähe oder mit Transport."}}]}]}</script>
 <link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -204,6 +205,8 @@ html{scroll-behavior:smooth}
 <main id="top">
 <div class="hero">
   <picture class="hero-bg">
+    <source media="(max-width: 700px)" type="image/webp" srcset="img/hero-m-720.webp 720w, img/hero-m-1080.webp 1080w" sizes="100vw">
+    <source media="(max-width: 700px)" srcset="img/hero-m-720.jpg 720w, img/hero-m-1080.jpg 1080w" sizes="100vw">
     <source type="image/webp" srcset="img/hero-800.webp 800w, img/hero-1400.webp 1400w, img/hero-2400.webp 2400w" sizes="100vw">
     <img src="img/hero-1400.jpg" srcset="img/hero-800.jpg 800w, img/hero-1400.jpg 1400w, img/hero-2400.jpg 2400w" sizes="100vw" width="2400" height="1158" alt="Segelboote im Yachthafen in der Abenddämmerung" fetchpriority="high" decoding="async">
   </picture>
@@ -443,8 +446,8 @@ html{scroll-behavior:smooth}
 (function(){
   var c=document.getElementById('snow'); if(!c||!c.getContext) return;
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var ctx=c.getContext('2d'), flakes=[], w=0, h=0, dpr=Math.min(window.devicePixelRatio||1,2), running=true, raf=0;
-  function size(){ var r=c.getBoundingClientRect(); w=r.width; h=r.height; c.width=w*dpr; c.height=h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+  var ctx=c.getContext('2d'), flakes=[], w=0, h=0, dpr=Math.min(window.devicePixelRatio||1,2), running=true, raf=0, started=false;
+  function size(nw,nh){ w=nw; h=nh; c.width=w*dpr; c.height=h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
     var n=Math.round(Math.min(110,w/12)); flakes=[]; for(var i=0;i<n;i++) flakes.push(make(true)); }
   function make(anyY){ var z=Math.random(); return {x:Math.random()*w, y:anyY?Math.random()*h:-6, r:0.6+z*2.2, s:0.25+z*0.9, a:0.35+z*0.5, p:Math.random()*6.28, d:0.3+Math.random()*0.7}; }
   function tick(){ ctx.clearRect(0,0,w,h);
@@ -452,10 +455,11 @@ html{scroll-behavior:smooth}
       if(f.y>h+6||f.x<-6||f.x>w+6){ flakes[i]=make(false); continue; }
       ctx.beginPath(); ctx.arc(f.x,f.y,f.r,0,6.283); ctx.fillStyle='rgba(255,255,255,'+f.a+')'; ctx.fill(); }
     raf=requestAnimationFrame(tick); }
-  function start(){ if(!running){ running=true; raf=requestAnimationFrame(tick);} }
+  function start(){ if(running) return; running=true; if(started) raf=requestAnimationFrame(tick); }
   function stop(){ running=false; cancelAnimationFrame(raf); }
-  size(); raf=requestAnimationFrame(tick);
-  window.addEventListener('resize',function(){ size(); });
+  function begin(nw,nh){ size(nw,nh); if(!started){ started=true; if(running) raf=requestAnimationFrame(tick); } }
+  if('ResizeObserver' in window){ new ResizeObserver(function(es){ var r=es[0].contentRect; begin(r.width,r.height); }).observe(c); }
+  else { window.addEventListener('load',function(){ begin(c.clientWidth,c.clientHeight); }); }
   if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ es[0].isIntersecting?start():stop(); }).observe(c); }
   document.addEventListener('visibilitychange',function(){ document.hidden?stop():start(); });
 })();

@@ -129,8 +129,12 @@ textarea{min-height:90px;resize:vertical}
 .chip span{display:inline-block;padding:8px 14px;border:1px solid var(--rule);border-radius:999px;font-size:14.5px;background:var(--ground);cursor:pointer}
 .chip input:checked+span{background:var(--wrap);border-color:var(--wrap);color:var(--wrap-ink)}
 .chip input:focus-visible+span{outline:3px solid var(--crane);outline-offset:2px}
-.consent{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted)}
-.consent input{margin-top:4px;width:18px;height:18px;flex:none}
+.consent{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--muted);cursor:pointer;padding:12px;margin:-12px;border-radius:10px}
+.consent:hover{background:var(--ground)}
+.consent input{margin-top:2px;width:22px;height:22px;flex:none;accent-color:var(--wrap);cursor:pointer}
+.consent:has(input:checked){color:var(--ink)}
+.cta:disabled{opacity:.45;cursor:not-allowed;filter:none}
+.send-hint{font-size:13.5px;color:var(--muted);margin:-12px 0 0;text-align:center}
 .hp{position:absolute;left:-9999px}
 .status{font-size:15px;padding:12px 14px;border-radius:8px}
 .status.ok{background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok)}
@@ -319,7 +323,8 @@ html{scroll-behavior:smooth}
       </fieldset>
 
       <div id="status" class="status" role="status" aria-live="polite" hidden></div>
-      <button class="cta" type="submit" id="senden">Anfrage kostenlos senden</button>
+      <button class="cta" type="submit" id="senden" disabled aria-describedby="send-hint">Anfrage kostenlos senden</button>
+      <p class="send-hint" id="send-hint">Bitte bestätigen Sie zuerst die Einwilligung oben.</p>
     </form>
   </div>
 </section>
@@ -387,8 +392,13 @@ html{scroll-behavior:smooth}
   var FORM_ENDPOINT='';
   var host=location.hostname||'';
   var isPreview=/claude\.ai$|claudeusercontent|^$|localhost/.test(host) || location.protocol==='file:';
+  // Senden erst nach Einwilligung
+  var consent=document.getElementById('einwilligung'), hint=document.getElementById('send-hint'), sending=false;
+  function sync(){ if(sending) return; btn.disabled=!consent.checked; hint.hidden=consent.checked; }
+  consent.addEventListener('change',sync); form.addEventListener('reset',function(){setTimeout(sync,0);}); sync();
   form.addEventListener('submit',function(e){
     e.preventDefault();
+    if(!consent.checked){ sync(); consent.focus(); show('Bitte bestätigen Sie die Einwilligung, damit wir Ihre Anfrage bearbeiten können.',false); return; }
     var art=form.querySelectorAll('input[name=art]:checked').length;
     if(!form.checkValidity()){
       var bad=form.querySelector(':invalid'); if(bad){bad.focus();}
@@ -398,13 +408,13 @@ html{scroll-behavior:smooth}
     if(isPreview){show('Vorschau: Das Formular ist geprüft, wird hier aber nicht gesendet. Auf marinaparking.com geht die Anfrage an uns.',true);return;}
     if(!FORM_ENDPOINT){show('Das Anfrageformular wird gerade eingerichtet und ist in Kürze verfügbar. Bitte versuchen Sie es in ein paar Tagen erneut.',false);return;}
     if(form.elements.firma_website.value){show('Danke! Ihre Anfrage ist angekommen.',true);return;}
-    btn.disabled=true; btn.textContent='Wird gesendet …';
+    sending=true; btn.disabled=true; btn.textContent='Wird gesendet …';
     var fd=new FormData(form); fd.delete('firma_website');
     fetch(FORM_ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:fd})
       .then(function(r){ if(!r.ok) throw new Error(r.status);
         form.reset(); show('Danke! Ihre Anfrage ist angekommen. Sie erhalten die Angebote per E-Mail, in der Regel innerhalb von drei Werktagen.',true); })
       .catch(function(){ show('Die Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie an kontakt@marinaparking.com.',false); })
-      .finally(function(){ btn.disabled=false; btn.textContent='Anfrage kostenlos senden'; });
+      .finally(function(){ sending=false; btn.textContent='Anfrage kostenlos senden'; sync(); });
   });
 })();
 

@@ -74,6 +74,9 @@ header.top .wrap{display:flex;justify-content:space-between;align-items:center;g
 .quick label{display:grid;gap:2px;padding:9px 14px;border-radius:11px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);cursor:text}
 .quick label:hover{background:var(--ground)}
 .quick label input,.quick label select{border:0;border-radius:0;background:transparent;padding:0;min-height:26px;font:inherit;font-size:17px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--ink);width:100%;outline:none}
+/* browser autofill: keep our own colours instead of the browser's highlight */
+input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus,select:-webkit-autofill{-webkit-text-fill-color:var(--ink);caret-color:var(--ink);transition:background-color 99999s ease-out 0s}
+input:autofill{background-image:none;filter:none}
 select option{background-color:var(--surface);color:var(--ink)}
 select option:checked{background-color:var(--wrap);color:var(--wrap-ink)}
 .quick label:focus-within{background:var(--ground);box-shadow:inset 0 0 0 2px var(--wrap)}
@@ -148,10 +151,6 @@ details p{margin:10px 0 0;color:var(--muted);font-size:15.5px}
 .yards{background:var(--wrap-soft);border-radius:12px;padding:28px;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}
 .yards p{margin:0}
 
-.legal{font-size:14.5px;color:var(--muted)}
-.legal h2{font-size:22px;color:var(--ink)}
-.legal h3{font-size:16px;color:var(--ink);margin-top:18px}
-.legal p,.legal ul{max-width:78ch}
 footer{padding-block:28px;border-top:1px solid var(--rule);font-size:14px;color:var(--muted)}
 footer .wrap{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:space-between}
 
@@ -255,7 +254,7 @@ html{scroll-behavior:smooth}
       <div class="label">Anfrage</div>
       <h2>Winterlager anfragen</h2>
       <p>Je genauer Ihre Angaben, desto passender die Angebote. Pflichtfelder sind mit * markiert.</p>
-      <p class="note">Wir leiten Ihre Anfrage nur an Anbieter weiter, die für Ihr Boot in Frage kommen, und nur mit Ihrer Einwilligung. Mehr dazu in der <a href="#datenschutz">Datenschutzerklärung</a>.</p>
+      <p class="note">Wir leiten Ihre Anfrage nur an Anbieter weiter, die für Ihr Boot in Frage kommen, und nur mit Ihrer Einwilligung. Mehr dazu in der <a href="datenschutz/">Datenschutzerklärung</a>.</p>
     </div>
 
     <form id="lead" name="winterlager" method="POST" novalidate>
@@ -319,7 +318,7 @@ html{scroll-behavior:smooth}
           <label class="f">E-Mail *<input type="email" id="email" name="email" required autocomplete="email"></label>
         </div>
         <label class="f">Telefon <small>optional, für Rückfragen</small><input type="tel" id="telefon" name="telefon" autocomplete="tel"></label>
-        <label class="consent"><input type="checkbox" id="einwilligung" name="einwilligung" value="ja" required><span>Ich bin einverstanden, dass Marina Parking meine Angaben zur Bearbeitung der Anfrage speichert und an passende Winterlager-Anbieter weitergibt. Die Einwilligung kann ich jederzeit per E-Mail widerrufen. Details in der <a href="#datenschutz">Datenschutzerklärung</a>. *</span></label>
+        <label class="consent"><input type="checkbox" id="einwilligung" name="einwilligung" value="ja" required><span>Ich bin einverstanden, dass Marina Parking meine Angaben zur Bearbeitung der Anfrage speichert und an passende Winterlager-Anbieter weitergibt. Die Einwilligung kann ich jederzeit per E-Mail widerrufen. Details in der <a href="datenschutz/">Datenschutzerklärung</a>. *</span></label>
       </fieldset>
 
       <div id="status" class="status" role="status" aria-live="polite" hidden></div>
@@ -351,37 +350,10 @@ html{scroll-behavior:smooth}
   </div>
 </section>
 
-<section class="legal" id="impressum">
-  <div class="wrap">
-    <h2>Impressum</h2>
-    <p>Angaben gemäß § 5 DDG</p>
-    <p>Dmytro Rybka<br>Marina Parking (Einzelunternehmen)<br>Im Hoffeld 31/1<br>74427 Fichtenberg<br>Deutschland</p>
-    <p>E-Mail: kontakt@marinaparking.com</p>
-  </div>
-</section>
-
-<section class="legal" id="datenschutz">
-  <div class="wrap">
-    <h2>Datenschutzerklärung</h2>
-    <h3>Verantwortlicher</h3>
-    <p>Dmytro Rybka, Marina Parking, Im Hoffeld 31/1, 74427 Fichtenberg, Deutschland, E-Mail: kontakt@marinaparking.com</p>
-    <h3>Hosting und Server-Logfiles</h3>
-    <p>Diese Website wird über GitHub Pages bereitgestellt, einen Dienst der GitHub, Inc., 88 Colin P. Kelly Jr. St., San Francisco, CA 94107, USA. Beim Aufruf verarbeitet GitHub technisch notwendige Daten, insbesondere Ihre IP-Adresse, um die Website auszuliefern und abzusichern. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. GitHub ist nach dem EU-US Data Privacy Framework zertifiziert.</p>
-    <h3>Anfrageformular</h3>
-    <p>Wenn Sie das Formular absenden, verarbeiten wir Ihre Angaben (Bootsdaten, Region, Wünsche, Name, E-Mail, optional Telefon), um passende Winterlager-Angebote einzuholen. Für den Empfang der Formulardaten setzen wir einen technischen Dienstleister als Auftragsverarbeiter nach Art. 28 DSGVO ein. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen auf Ihre Anfrage). Die Weitergabe an Winterlager-Anbieter erfolgt nur mit Ihrer Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO und nur an Anbieter, die für Ihr Boot in Frage kommen.</p>
-    <h3>Speicherdauer</h3>
-    <p>Wir löschen Ihre Anfrage spätestens 12 Monate nach Abschluss der Vermittlung, sofern keine gesetzlichen Aufbewahrungspflichten bestehen.</p>
-    <h3>Keine Cookies, kein Tracking</h3>
-    <p>Diese Website setzt keine Cookies, verwendet keine Analyse- oder Werbedienste und lädt keine externen Schriftarten.</p>
-    <h3>Ihre Rechte</h3>
-    <p>Sie haben das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21 DSGVO). Eine erteilte Einwilligung können Sie jederzeit mit Wirkung für die Zukunft widerrufen, eine E-Mail genügt. Sie können sich außerdem beim Landesbeauftragten für den Datenschutz und die Informationsfreiheit Baden-Württemberg beschweren.</p>
-    <p class="note">Stand: September 2026</p>
-  </div>
-</section>
 </main>
 
 <footer>
-  <div class="wrap"><span>© 2026 Marina Parking · Dmytro Rybka</span><span><a href="#impressum">Impressum</a> · <a href="#datenschutz">Datenschutz</a></span></div>
+  <div class="wrap"><span>© 2026 Marina Parking</span><span><a href="impressum/">Impressum</a> · <a href="datenschutz/">Datenschutz</a></span></div>
 </footer>
 
 <script>

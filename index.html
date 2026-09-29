@@ -10,8 +10,6 @@
 <link rel="manifest" href="site.webmanifest">
 <meta name="theme-color" content="#0F2436">
 <meta name="description" content="Winterlager für Ihr Boot finden: Halle, Freilager oder Wasserliegeplatz in Deutschland und den Niederlanden. Kostenlos anfragen, passende Angebote erhalten.">
-<!-- Bis Formular und E-Mail funktionieren: nicht indexieren. Vor dem Start entfernen. -->
-<meta name="robots" content="noindex">
 <link rel="canonical" href="https://marinaparking.com/">
 <style>
 :root{
@@ -366,7 +364,7 @@ html{scroll-behavior:smooth}
   var form=document.getElementById('lead'), status=document.getElementById('status'), btn=document.getElementById('senden');
   function show(msg,ok){status.hidden=false;status.className='status '+(ok?'ok':'err');status.textContent=msg;}
   // Adresse des Formular-Empfängers (z. B. Formspree). Leer = Formular noch nicht aktiv.
-  var FORM_ENDPOINT='';
+  var FORM_ENDPOINT='https://formspree.io/f/mqpawdvj';
   var host=location.hostname||'';
   var isPreview=/claude\.ai$|claudeusercontent|^$|localhost/.test(host) || location.protocol==='file:';
   // Senden erst nach Einwilligung
@@ -387,6 +385,7 @@ html{scroll-behavior:smooth}
     if(form.elements.firma_website.value){show('Danke! Ihre Anfrage ist angekommen.',true);return;}
     sending=true; btn.disabled=true; btn.textContent='Wird gesendet …';
     var fd=new FormData(form); fd.delete('firma_website');
+    ['art','leistungen'].forEach(function(k){ var v=fd.getAll(k); fd.delete(k); fd.append(k, v.length?v.join(', '):'—'); });
     fetch(FORM_ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:fd})
       .then(function(r){ if(!r.ok) throw new Error(r.status);
         form.reset(); show('Danke! Ihre Anfrage ist angekommen. Sie erhalten die Angebote per E-Mail, in der Regel innerhalb von drei Werktagen.',true); })

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://marinaparking.com/sitemap.xml
